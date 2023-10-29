@@ -52,13 +52,12 @@ export const signIn = async (req, res, next) => {
 
 };
 
-
 export const google = async (req, res, next) => {
     
     try {
        
         const user = await User.findOne({ email: req.body.email });
-     
+        
         if (user) {
 
             const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
@@ -93,6 +92,7 @@ export const google = async (req, res, next) => {
         next(error);
         
     }
+
     
 
 }
