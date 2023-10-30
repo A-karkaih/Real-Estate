@@ -2,7 +2,8 @@ import User from '../models/user.model.js';
 import bcrytjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
 import  jwt  from 'jsonwebtoken';
-export const signUp = async (req, res , next) => {
+
+export const signUp = async (req, res, next) => {
     const { username, email, password } = req.body;
     const hashedpassword = bcrytjs.hashSync(password, 10);
     const newUser = new User({
@@ -30,6 +31,7 @@ export const signIn = async (req, res, next) => {
 
     try {
         const validUser = await User.findOne({ email });
+        
         if (!validUser) {
             return next(errorHandler(404,"User not found! "));
         }
