@@ -4,7 +4,8 @@ import { getDownloadURL , getStorage, ref, uploadBytesResumable } from 'firebase
 import { app } from '../firebase';
 import {
   updateFailure, updateUserStart, updateUserSuccess,
-  deleteUserFailure,deleteUserStart,deleteUserSuccess
+  deleteUserFailure, deleteUserStart, deleteUserSuccess,
+  signInFailure,signInStart,signInSuccess, signOutUserFailure, signOutUserSuccess, signOutUserStart
 } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 const Profile = () => {
@@ -83,7 +84,7 @@ console.log(formData);
       const data = await res.json();
        console.log("hi after dispatch");
       
-      if (data.success == false) {
+      if (data.success === false) {
         dispatch(updateFailure(data.message));
         return;
       }
@@ -104,7 +105,7 @@ console.log(formData);
         method: "DELETE"
       });
       const data = await res.json();
-      if (data.success == false) {
+      if (data.success === false) {
          
         dispatch(deleteUserFailure(data.message));
         
@@ -117,7 +118,30 @@ console.log(formData);
     }
   }
 
-  
+
+  const handleSignOutUser = async () => {
+
+    dispatch(signOutUserStart());
+
+    try {
+      const res = await fetch(`api/auth/signout`);
+       const data = await res.json();
+     
+      if (data.success === false) {
+         
+        dispatch(signOutUserFailure(data.message));
+        
+        return;
+      }
+      console.log("Signout here " + currentUser.username);
+      dispatch(signOutUserSuccess(data));
+      
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message));
+      
+    }
+  }
+
   return (
 
     <div className='p-3 max-w-lg mx-auto'>
@@ -188,7 +212,7 @@ console.log(formData);
           Delete account
         </span>
 
-        <span className='text-red-700 cursor-pointer'>
+        <span  onClick={handleSignOutUser} className='text-red-700 cursor-pointer'>
           Sign out
         </span>
 
