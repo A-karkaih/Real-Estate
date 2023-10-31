@@ -225,6 +225,7 @@ console.log(formData);
       <p className='text-green-700 mt-5'> 
         {updateSuccess ? "User is updated succfully! " : ""}
       </p>
+      
     </div>
   )
 }
