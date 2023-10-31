@@ -8,6 +8,7 @@ import {
   signInFailure,signInStart,signInSuccess, signOutUserFailure, signOutUserSuccess, signOutUserStart
 } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 const Profile = () => {
 
   const { currentUser , loading , error } = useSelector (state => state.user);
@@ -203,6 +204,10 @@ console.log(formData);
           uppercase hover:opacity-95 disabled:opacity-80'>
           { loading  ? "loading..." : "Update"} 
         </button>
+        <Link to={"/create-listing"} className="bg-green-700
+        rounded-lg uppercase text-center hover:opacity-95 text-white p-3 ">
+        Create Listing
+        </Link>
 
       </form>
 
