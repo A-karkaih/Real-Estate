@@ -9,7 +9,7 @@ export const verifyToken = (req, res, next) => {
 
     const token = req.cookies.access_token;
     
-    console.log(token);
+    console.log("token is " + token);
    
    
 
