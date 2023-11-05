@@ -36,8 +36,8 @@ const UpdateListing = () => {
   const params = useParams();
   useEffect(() => {
     const fetchListing = async () => {
-      const listingId = params.listingId;
-      const res = await fetch(`/api/listing/get/${listingId}`);
+      
+      const res = await fetch(`/api/listing/get/${params.listingId}`);
 
       const data = await res.json();
 
@@ -145,7 +145,7 @@ const UpdateListing = () => {
     e.preventDefault();
 
     try {
-      const listingId = params.listingId;
+      
       if (formData.imageUrls.length < 1) {
         return setError("You must upload at least one image");
       }
@@ -156,7 +156,7 @@ const UpdateListing = () => {
 
       setLoading(true);
       setError(false);
-      const res = await fetch(`/api/listing/update/${listingId}`, {
+      const res = await fetch(`/api/listing/update/${params.listingId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
