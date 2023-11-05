@@ -1,15 +1,15 @@
 import Listing from "../models/listing.model.js";
-
+import { errorHandler } from "../utils/error.js";
 
 export const creatListing = async (req, res, next) => {
 
     try {
 
         const listing = await Listing.create(req.body);
-        console.log("I am in listing page " + listing );
+        console.log("I am in listing page " + listing);
         return res.status(201).json(listing);
 
-        
+
     } catch (error) {
         console.log("I am in error page ");
         next(error);
@@ -34,3 +34,20 @@ export const deleteListing = async (req, res, next) => {
         next(error);
     }
 };
+
+export const updateListing = async (req, res, next) => {
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) {
+        return next(errorHandler(404, 'Listing not found'));
+    }
+    if (req.user.id !== listing.userRef) {
+        return next(errorHandler(401, 'You can only update your own listings!'));
+    }
+    try {
+        const updateListing = await Listing.findByIdAndUpdate(req.params.id, req.body, { new: ture });
+        res.status(200).json(updateListing);
+    } catch (error) {
+        next(error);
+    }
+
+}
