@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import SwiperCore from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -14,7 +14,7 @@ import {
   FaParking,
   FaShare,
 } from "react-icons/fa";
-import Contact from "./Contact";
+import Contact from "../components/Contact";
 const Listing = () => {
   SwiperCore.use([Navigation]);
   const [listing, setListing] = useState(null);
