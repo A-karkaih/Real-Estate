@@ -9,6 +9,8 @@ export const test = (req, res) => {
 
 export const updateUser = async (req, res, next) => {
 
+    console.log(req.user.id, req.params.id);
+
     if (req.user.id !== req.params.id) {
 
         return next(errorHandler(401, 'You can only update your own account'));
@@ -38,6 +40,7 @@ export const updateUser = async (req, res, next) => {
         res.status(200).json(rest);
 
     } catch (error) {
+        console.log("error here");
         next(error);
     }
 }
